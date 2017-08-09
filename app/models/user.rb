@@ -7,6 +7,7 @@ class User < ApplicationRecord
   after_initialize :set_defaults
 
   validates_presence_of :first_name, :last_name, :username
+  validates :username, uniqueness: true, presence: true, format: { with: /\A[a-zA-Z]+([a-zA-Z]|\d)*\Z/ }
 
   private
 

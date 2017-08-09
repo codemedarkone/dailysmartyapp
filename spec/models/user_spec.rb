@@ -29,6 +29,18 @@ RSpec.describe User, type: :model do
         @user.username = nil
         expect(@user).to_not be_valid
       end
+
+      it 'should ensure that all usernames are unique' do
+        duplicate_username = User.create(email: "test2@test.com", password: "password", password_confirmation: "password", first_name: "Joni", last_name: "Snowy", username: "watcheronthewall")
+
+        duplicate_username = User.new(email: "test2@test.com", password: "password", password_confirmation: "password", first_name: "Joni", last_name: "Snowy", username: "watcheronthewall")
+        expect(duplicate_username).to_not be_valid
+      end
+
+      it 'should ensure that usernames do not allow special characters' do 
+        @user.username = "*#*(@!"
+        expect(@user).to_not be_valid
+      end
     end
   end
 end
