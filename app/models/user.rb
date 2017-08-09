@@ -3,4 +3,15 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  after_initialize :set_defaults
+
+  validates_presence_of :first_name, :last_name, :username
+
+  private
+
+  def set_defaults
+    self.role ||= 'student'
+  end
+
 end
